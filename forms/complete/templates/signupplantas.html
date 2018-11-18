@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}
+Repisas
+{% endblock %}
+
+{% block content %}
+<h1> Welcome! </h1>
+
+<form method="post" action="{{url_for('signuprep')}}">
+  <h3>Por favor ingrese los datos de tu planta </h3>
+  <p> <input type= "text" name="categoria"></p>
+  <input type="submit" value="Ingresar">
+</form>
+
+<!-- <template>
+  <h1> Welcome! </h1>
+  <v-form  method="post" action= "{{url_for('signuprep')}}" v-model="valid">
+    <h1> Welcome! </h1>
+    <v-text-field v-model="categoria" :rules="tipo_categoria" :counter="50" label="Categoria" required></v-text-field>
+  </v-form>
+</template> -->
+
+<!-- // <script>
+//   export default {
+//     data: () => ({
+//       valid: false,
+//       categoria: '',
+//       tipo_categoria: [
+//         v => !!v || 'categoria no insertada',
+//         v => v.length <= 50 || 'categoria debe ser menor a 50'
+//       ]
+//     })
+//   }
+// </script> -->
+
+{% endblock %}

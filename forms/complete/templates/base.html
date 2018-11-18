@@ -1,0 +1,11 @@
+<content>
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+    <v-link rel="shortcut icon" href= "{{url_for('static', filename='imgs/ravenclaw.ico')}}">
+  </head>
+  <body>
+    {% block content %}
+    {%endblock%}
+  </body>
+</content>
