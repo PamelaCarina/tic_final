@@ -11,34 +11,40 @@ def get_pw(username):
         return users.get(username)
     return None
 
-class Index(Resource):
+class Index(Resource): #acepta el log in y devuelve un saludo al usuario que se logueo
     decorators = [auth.login_required]
     def get(self):
         return "Hello, %s!" % auth.username()
 
-class TemperatureList(Resource):
-    decorators = [auth.login_required]
+class Sensorslist(Resource):
+    decorators = [auth.login_required] #recursos que requieren autenticacion
     def get(self):
-        allTemperatures = Sensor.query.all()
-        result = schema.dump(allTemperatures, many=True).data
+        allSensors = Sensor.query.all()
+        result = schema.dump(allSesnors, many=True).data
         return result
     def post(self):
         args = request.get_json()
-        sensor_read = Sensor(args['temperature'])
+        sensor_read = Sensor(args['temperature, humedad, pH, luminosidad'])
         db.session.add(sensor_read)
-        return 'Temperature added', 200
+        return 'Sensors added', 200
 
-class Temperature(Resource):
+class Sensors(Resource): #obtener un valor especifico de base de datos del que conocemos su identificador
     decorators = [auth.login_required]
     def get(self, id):
         temperature = Sensor.query.get(id)
-        result = schema.dump(temperature).data
-        return result
+        humedad = Sensor.query.get(id)
+        pH = Sensor.query.get(id)
+        luminosidad = Sensor.query.get(id)
+        result1 = schema.dump(temperature).data
+        result2 = schema.dump(humedad).data
+        result3 = schema.dump(pH).data
+        result4 = schema.dump(luminosidad).data
+        return result1 and result2 and result3 and result4
 
 
 api.add_resource(Index, '/api/v1.0', endpoint='index')
-api.add_resource(TemperatureList, '/api/v1.0/temperature', endpoint='temperatures')
-api.add_resource(Temperature, '/api/v1.0/temperature/<string:id>', endpoint='temperature')
+api.add_resource(Sensorslist, '/api/v1.0/sensores', endpoint='sensores')
+api.add_resource(Sensors, '/api/v1.0/sensores/<string:id>', endpoint='sensores1')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
